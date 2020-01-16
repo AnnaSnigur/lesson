@@ -10,8 +10,13 @@
     <input name="first_name">
     <input name="submit" type="submit">
 </form>
+<p><input type="button" value=" Add teacher " onClick='location.href="http://127.0.0.1:8000/teachers/add/"'></p>
+    {% for teacher in teachers_list %}
+    <div>
+        <a href="{% url 'teachers-edit' teacher.id %}">{{ teacher.get_info }}</a>
+    </div>
+    {% endfor %}
 
 {{ teachers_list|safe }}
-
 </body>
 </html>

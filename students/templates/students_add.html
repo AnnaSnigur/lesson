@@ -6,11 +6,12 @@
 </head>
 <body>
 
-<form action="{% url 'groups_add' %}" method="post">
-    {% csrf_token %}
-{{ form.as_p }}
+<form action="{% url 'students_add' %}" method="get">
+        {% csrf_token %}
+        {{ form.as_p }}
     <input name="submit" type="submit">
 </form>
+
 
 </body>
 </html>

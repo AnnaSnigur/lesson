@@ -6,7 +6,8 @@
 </head>
 <body>
 
-<form action="{% url 'groups_add' %}" method="post">
+EDIT Groups
+<form action="{% url 'groups-edit' pk %}" method="post">
     {% csrf_token %}
 {{ form.as_p }}
     <input name="submit" type="submit">

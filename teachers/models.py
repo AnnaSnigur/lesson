@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from faker import Faker
 from django.db import models
 
@@ -16,7 +14,6 @@ class Teacher(models.Model):
     birth_date = models.DateField()
     email = models.EmailField()
     telephone = models.CharField(max_length=16)
-    # job = models.CharField(max_length=255)
 
     def get_info(self):
         return f'{self.first_name} {self.last_name} {self.birth_date} {self.email}{self.telephone}'
@@ -33,4 +30,5 @@ class Teacher(models.Model):
         )
         teacher.save()
         return teacher
+
 

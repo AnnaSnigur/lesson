@@ -6,11 +6,16 @@
 </head>
 <body>
 
-<form action="/students/" method="get">
+<form action="{% url 'students' %}" method="get">
     <input name="name">
     <input name="submit" type="submit">
 </form>
-
+<p><input type="button" value=" Add student " onClick='location.href="http://127.0.0.1:8000/students/add/"'></p>
+    {% for student in student_list %}
+    <div>
+        <a href="{% url 'students-edit' student.id %}">{{ student.get_info }}</a>
+    </div>
+    {% endfor %}
 {{ student_list|safe }}
 
 </body>
