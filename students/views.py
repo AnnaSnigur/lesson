@@ -1,9 +1,11 @@
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseRedirect, \
+    HttpResponseNotFound
 from django.shortcuts import render
 from django.urls import reverse
 
 from students.models import Student, Group
-from students.forms import StudentsAddForm, GroupsAddForm,  ContactForm
+from students.forms import StudentsAddForm, GroupsAddForm,  \
+    ContactForm
 
 
 def generate_student(request):
@@ -13,20 +15,12 @@ def generate_student(request):
 
 def students(request):
     queryset = Student.objects.all()
-    response = ''
-
-    print("request.GET.get('first_name')")
     fn = request.GET.get('first_name')
     if fn:
         queryset = queryset.filter(first_name__istartswith=fn)
-
-    for student in queryset:
-        response += student.get_info() + '<br>'
-    print('queryset.query')
-    print(queryset.query)
     return render(request,
                   'student_list.html',
-                  context={'student_list': response})
+                  context={'student_list': queryset})
 
 
 def students_add(request):
@@ -37,7 +31,6 @@ def students_add(request):
             return HttpResponseRedirect(reverse('students'))
     else:
         form = StudentsAddForm()
-
     return render(request,
                   'students_add.html',
                   context={'form': form})
@@ -50,20 +43,12 @@ def generate_group(request):
 
 def groups(request):
     queryset = Group.objects.all()
-    response = ''
-
-    print("request.GET.get('name')")
     fn = request.GET.get('name')
     if fn:
         queryset = queryset.filter(name__istartswith=fn)
-
-    for group in queryset:
-        response += group.get_info() + '<br>'
-    print('queryset.query')
-    print(queryset.query)
     return render(request,
                   'group_list.html',
-                  context={'group_list': response})
+                  context={'group_list': queryset})
 
 
 def groups_add(request):
@@ -74,7 +59,6 @@ def groups_add(request):
             return HttpResponseRedirect(reverse('groups'))
     else:
         form = GroupsAddForm()
-
     return render(request,
                   'groups_add.html',
                   context={'form': form})
@@ -84,7 +68,8 @@ def students_edit(request, pk):
     try:
         student = Student.objects.get(id=pk)
     except Student.DoesNotExist:
-        return HttpResponseNotFound(f'Student with id {pk} not found')
+        return HttpResponseNotFound\
+            (f'Student with id {pk} not found')
 
     if request.method == 'POST':
         form = StudentsAddForm(request.POST, instance=student)
@@ -94,7 +79,6 @@ def students_edit(request, pk):
             return HttpResponseRedirect(reverse('students'))
     else:
         form = StudentsAddForm(instance=student)
-
     return render(request,
                   'students_edit.html',
                   context={'form': form, 'pk': pk})
@@ -114,7 +98,6 @@ def groups_edit(request, pk):
             return HttpResponseRedirect(reverse('groups'))
     else:
         form = GroupsAddForm(instance=group)
-
     return render(request,
                   'groups_edit.html',
                   context={'form': form, 'pk': pk})
@@ -129,8 +112,6 @@ def contact(request):
             return HttpResponseRedirect(reverse('students'))
     else:
         form = ContactForm()
-
     return render(request,
                   'contact.html',
                   context={'form': form})
-

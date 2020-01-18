@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'base.html' %}
+
+{% block head %}
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>Teachers_add</title>
+{% endblock head %}
+{% block content %}
 
 <form action="/teachers/add/" method="post">
     {% csrf_token %}
 {{ form.as_p }}
     <input name="submit" type="submit">
 </form>
-
-</body>
-</html>
+{% endblock content %}
