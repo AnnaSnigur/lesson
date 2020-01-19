@@ -25,7 +25,7 @@ class ContactForm(Form):
         recipient_list = [settings.EMAIL_HOST_USER, ]
         send_mail(subject, message, email_from, recipient_list, fail_silently=False)
 
-        with open(settings.EMAIL_FILE_PATH_REPORT, 'w') as txt:
+        with open(settings.EMAIL_FILE_PATH_REPORT, 'a') as txt:
             file = File(txt)
             file.write(self)
         txt.closed
