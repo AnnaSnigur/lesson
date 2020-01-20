@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <meta charset="UTF-8">
+    <title>Group_list</title>
+{% endblock head %}
+
+{% block content %}
+<form action="{% url 'groups' %}" method="get">
+    <input name="name">
+    <input name="submit" type="submit">
+</form>
+<p><input type="button" value=" Add group " onClick='location.href="/students/groups/add/"'></p>
+<table border="1" width="100%" cellpadding="5">
+   <tr>
+       <th></th>
+       <th>id</th>
+       <th>name</th>
+       <th>email</th>
+   </tr>
+    {% for student in group_list %}
+    <tr>
+         <th><a href="{% url 'groups-edit' group.id %}"> group edit </a></th>
+         <th>{{group.id}}</th>
+         <th>{{group.name}}</th>
+         <th>{{group.email}}</th>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}
