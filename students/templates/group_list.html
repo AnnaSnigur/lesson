@@ -17,6 +17,9 @@
        <th>id</th>
        <th>name</th>
        <th>email</th>
+       <th>headman</th>
+       <th>curator</th>
+
    </tr>
     {% for student in group_list %}
     <tr>
@@ -24,6 +27,8 @@
          <th>{{group.id}}</th>
          <th>{{group.name}}</th>
          <th>{{group.email}}</th>
+        <th>{{group.headman.name}}</th>
+        <th>{{group.curator.name}}</th>
     </tr>
     {% endfor %}
 </table>

@@ -37,15 +37,15 @@ def students_add(request):
 
 
 def generate_group(request):
-    group = Group.generate_student()
+    group = Group.generate_group()
     return HttpResponse(f'{group.get_info()}')
 
 
 def groups(request):
     queryset = Group.objects.all()
-    fn = request.GET.get('name')
+    fn = request.GET.get('fn')
     if fn:
-        queryset = queryset.filter(name__istartswith=fn)
+        queryset = queryset.filter(name__isnull=False)
     return render(request,
                   'group_list.html',
                   context={'group_list': queryset})

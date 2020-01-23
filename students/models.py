@@ -42,9 +42,17 @@ class Group(models.Model):
     email = models.CharField(max_length=20)
     blood = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=20)
+    headman = models.ForeignKey('students.Student',
+                                null=True, blank=True,
+                                on_delete=models.CASCADE,
+                                related_name='+')
+    curator = models.ForeignKey('teachers.Teacher',
+                                null=True, blank=True,
+                                on_delete=models.CASCADE,
+                                related_name='+')
 
     def get_info(self):
-        return f'{self.name} {self.email}{self.blood}{self.phone_number}'
+        return f'{self.name} {self.email}{self.blood}{self.phone_number} {self.headman} {self.curator}'
 
     @classmethod
     def generate_group(cls):
@@ -57,4 +65,3 @@ class Group(models.Model):
         )
         group.save()
         return group
-v
