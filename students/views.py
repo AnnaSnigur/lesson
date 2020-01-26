@@ -42,13 +42,13 @@ def generate_group(request):
 
 
 def groups(request):
-    queryset = Group.objects.all()
-    fn = request.GET.get('fn')
+    queryset = Group.objects.all().select_related('group')
+    fn = request.GET.get('name')
     if fn:
-        queryset = queryset.filter(name__isnull=False)
+        queryset = queryset.filter(name__istartswith=fn)
     return render(request,
                   'group_list.html',
-                  context={'group_list': queryset})
+                  context={'groups': queryset})
 
 
 def groups_add(request):

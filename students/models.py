@@ -16,6 +16,9 @@ class Student(models.Model):
     email = models.EmailField()
     telephone = models.CharField(max_length=16)
     address = models.CharField(max_length=255, null=True, blank=True)
+    group = models.ForeignKey('students.Group',
+                              null=True, blank=True,
+                              on_delete=models.CASCADE)
 
     def get_info(self):
         return f'{self.first_name}{self.last_name} {self.email}'
@@ -36,12 +39,19 @@ class Student(models.Model):
         student.save()
         return student
 
+    def __str__(self):
+        return f'{self.id} {self.full_name}'
+
+    @property
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
 
 class Group(models.Model):
     name = models.CharField(max_length=20)
     email = models.CharField(max_length=20)
     blood = models.CharField(max_length=20)
-    phone_number = models.CharField(max_length=20)
+    phone_number = models.CharField(max_length=30)
     headman = models.ForeignKey('students.Student',
                                 null=True, blank=True,
                                 on_delete=models.CASCADE,
@@ -65,3 +75,6 @@ class Group(models.Model):
         )
         group.save()
         return group
+
+    def __str__(self):
+        return f'{self.id} {self.name}'

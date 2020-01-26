@@ -31,4 +31,5 @@ class Teacher(models.Model):
         teacher.save()
         return teacher
 
-
+    def __str__(self):
+        return f'{self.id} {self.first_name}'

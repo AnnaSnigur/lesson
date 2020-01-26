@@ -24,7 +24,6 @@ SECRET_KEY = '#l$m6q$++pe_f96gsb_nc=%a@@#5brko*3v%3%=w5888pyv9e$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
 
@@ -37,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'debug-toolbar',
     'students',
     'teachers',
 ]
@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'students_tracker.urls'
@@ -151,3 +152,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'testtestapp454545@gmail.com'
 EMAIL_HOST_PASSWORD = 'qwerty123456qwerty'
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
