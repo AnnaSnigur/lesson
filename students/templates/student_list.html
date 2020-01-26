@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <meta charset="UTF-8">
+    <title>Student_list</title>
+{% endblock head %}
+
+{% block content %}
+<form action="{% url 'students' %}" method="get">
+    <input name="name">
+    <input name="submit" type="submit">
+</form>
+<p><input type="button" value=" Add student " onClick='location.href="/students/add "'></p>
+
+<table border="1" width="100%" cellpadding="5">
+   <tr>
+       <th></th>
+       <th>id</th>
+       <th>email</th>
+       <th>last_name</th>
+   </tr>
+    {% for student in student_list %}
+    <tr>
+        <th><a href="{% url 'students-edit' student.id %}"> student edit </a></th>
+        <th>{{student.id}}</th>
+        <th>{{student.email}}</th>
+       <th>{{student.last_name}}</th>
+ </tr>
+    {% endfor %}
+    </table>
+{% endblock content %}

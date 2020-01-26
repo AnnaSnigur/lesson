@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <meta charset="UTF-8">
+    <title>Teacher_list</title>
+{% endblock head %}
+{% block content %}
+<form action="/teachers/" method="get">
+    <input name="first_name">
+    <input name="submit" type="submit">
+</form>
+<p><input type="button" value=" Add teacher " onClick='location.href="/teachers/add/"'></p>
+<table border="1" width="100%" cellpadding="5">
+   <tr>
+       <th></th>
+       <th>id</th>
+       <th>email</th>
+       <th>last_name</th>
+   </tr>
+    {% for teacher in teachers_list %}
+    <tr>
+        <th> <a href="{% url 'teachers-edit' teacher.id %}">teacher edit</a></th>
+        <th>{{teacher.id}}</th>
+        <th>{{teacher.email}}</th>
+        <th>{{teacher.last_name}}</th>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}
