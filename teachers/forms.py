@@ -1,14 +1,42 @@
-from django.forms import ModelForm, Form, EmailField, CharField
+from django.forms import ModelForm, Form, EmailField, CharField, ValidationError
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.files import File
 from teachers.models import Teacher
 
 
-class TeachersAddForm(ModelForm):
+class BaseTeacherForm(ModelForm):
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower()
+        email_exists = Teacher.objects. \
+            filter(email__iexact=email). \
+            exclude(id=self.instance.id)
+        if email_exists.exists():
+            raise ValidationError(f'Email {email} is already used')
+        return email
+
+    def clean_telephone(self):
+        telephone = self.cleaned_data['telephone']
+        if not telephone.isdigit():
+            raise ValidationError(f'Telephone {telephone} should consist only of numbers')
+        telephone_exists = Teacher.objects. \
+            filter(telephone=telephone). \
+            exclude(id=self.instance.id)
+        if telephone_exists.exists():
+            raise ValidationError(f'Telephone {telephone} is already used')
+        return telephone
+
+
+class TeachersAddForm(BaseTeacherForm):
     class Meta:
         model = Teacher
         fields = '__all__'
+
+
+class TeacherAdminForm (BaseTeacherForm):
+    class Meta:
+        model = Teacher
+        fields = ('id', 'email', 'first_name', 'last_name')
 
 
 class ContactForm(Form):

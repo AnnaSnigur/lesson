@@ -1,4 +1,4 @@
-from django.forms import ModelForm, Form, EmailField, CharField
+from django.forms import ModelForm, Form, EmailField, CharField, ValidationError
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.files import File
@@ -7,10 +7,38 @@ from students.models import Group
 from students.models import Student
 
 
-class StudentsAddForm(ModelForm):
+class BaseStudentForm(ModelForm):
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower()
+        email_exists = Student.objects.\
+            filter(email__iexact=email).\
+            exclude(id=self.instance.id)
+        if email_exists.exists():
+            raise ValidationError(f'Email {email} is already used')
+        return email
+
+    def clean_telephone(self):
+        telephone = self.cleaned_data['telephone']
+        if not telephone.isdigit():
+            raise ValidationError(f'Telephone {telephone} should consist only of numbers')
+        telephone_exists = Student.objects.\
+            filter(telephone__iexact=telephone).\
+            exclude(id=self.instance.id)
+        if telephone_exists.exists():
+            raise ValidationError(f'Telephone {telephone} is already used')
+        return telephone
+
+
+class StudentsAddForm(BaseStudentForm):
     class Meta:
         model = Student
         fields = '__all__'
+
+
+class StudentAdminForm(BaseStudentForm):
+    class Meta:
+        model = Student
+        fields = ('id', 'email', 'first_name', 'last_name')
 
 
 class GroupsAddForm(ModelForm):

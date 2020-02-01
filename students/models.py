@@ -13,8 +13,8 @@ class Student(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=30)
     date = models.CharField(max_length=15)
-    email = models.EmailField()
-    telephone = models.CharField(max_length=16)
+    email = models.EmailField(unique=True)
+    telephone = models.CharField(max_length=16, unique=True)
     address = models.CharField(max_length=255, null=True, blank=True)
     group = models.ForeignKey('students.Group',
                               null=True, blank=True,
