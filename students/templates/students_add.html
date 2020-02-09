@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <meta charset="UTF-8">
+    <title>Students_add</title>
+{% endblock head %}
+
+{% block content %}
+contact
+<form action="{% url 'students_add' %}" method="get">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <input name="submit" type="submit">
+</form>
+{% endblock content %}
