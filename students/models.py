@@ -78,3 +78,11 @@ class Group(models.Model):
 
     def __str__(self):
         return f'{self.id} {self.name}'
+
+class Logger(models.Model):
+    path = models.CharField(max_length=100)
+    method = models.IntegerField(2)
+    time_delta = models.DecimalField(max_digits=5, decimal_places=3)
+    user_id = models.IntegerField()
+    created = models.DateTimeField(auto_now=True)
+

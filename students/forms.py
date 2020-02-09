@@ -2,6 +2,7 @@ from django.forms import ModelForm, Form, EmailField, CharField, ValidationError
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.files import File
+from django.contrib.auth.models import User
 
 from students.models import Group
 from students.models import Student
@@ -64,3 +65,20 @@ class ContactForm(Form):
         with open(settings.EMAIL_FILE_PATH_REPORT, 'a') as txt:
             file = File(txt)
             file.write(self)
+
+
+class UserRegistrationForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.set_password(self.cleaned_data['password'])
+        instance.is_active = False
+        super().save(commit)
+
+
+class UserLoginForm(Form):
+    username = CharField()
+    password = CharField()
