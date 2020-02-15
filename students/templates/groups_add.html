@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <meta charset="UTF-8">
+    <title>Group_add</title>
+{% endblock head %}
+
+{% block content %}
+<form action="{% url 'groups_add' %}" method="post">
+    {% csrf_token %}
+{{ form.as_p }}
+    <input name="submit" type="submit">
+</form>
+{% endblock content %}
