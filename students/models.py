@@ -79,6 +79,7 @@ class Group(models.Model):
     def __str__(self):
         return f'{self.id} {self.name}'
 
+
 class Logger(models.Model):
     path = models.CharField(max_length=100)
     method = models.IntegerField(2)

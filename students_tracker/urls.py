@@ -17,12 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls import include, url
+import Student
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('students/', include('students.urls')),
     path('teachers/', include('teachers.urls')),
 ]
+
+handler404 = Student.views.handler404
+handler500 = Student.views.handler500
 
 if settings.DEBUG:
     if 'debug_toolbar' in settings.INSTALLED_APPS:

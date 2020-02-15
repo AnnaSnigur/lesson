@@ -1,11 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect, \
     HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth import login, authenticate, logout
 
 from students.models import Student, Group
-from students.forms import StudentsAddForm, GroupsAddForm,  \
+from students.forms import StudentsAddForm, GroupsAddForm, \
     ContactForm, UserRegistrationForm, UserLoginForm
 
 
@@ -69,7 +69,7 @@ def students_edit(request, pk):
     try:
         student = Student.objects.get(id=pk)
     except Student.DoesNotExist:
-        return HttpResponseNotFound\
+        return HttpResponseNotFound \
             (f'Student with id {pk} not found')
 
     if request.method == 'POST':
@@ -158,3 +158,10 @@ def custom_login(request):
                   'login.html',
                   context={'form': form})
 
+
+def handler404(request):
+    return render(request, '404.html', status=404)
+
+
+def handler500(request):
+    return render(request, '500.html', status=500)

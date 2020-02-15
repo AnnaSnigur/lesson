@@ -23,7 +23,5 @@ class LoggerMiddleware:
                 time_delta=time_delta,
                 user_id=user_id,
             )
-
-            logger.save()
-
         return response
+
